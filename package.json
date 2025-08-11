@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/k1mka/flutter_master_server/issues"
   },
-  "homepage": "https://github.com/k1mka/flutter_master_server#readme"
+  "homepage": "https://github.com/k1mka/flutter_master_server#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
