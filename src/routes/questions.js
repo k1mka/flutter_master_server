@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 router.get('/random', (req, res) => {
   if (questions.length === 0) {
-    return res.status(404).json({ message: 'Вопросы не найдены' });
+    return res.status(404).json({ message: 'Question not found' });
   }
   const randomIndex = Math.floor(Math.random() * questions.length);
   const randomQuestion = questions[randomIndex];
@@ -31,7 +31,21 @@ router.patch('/:id', (req, res) => {
 
   question.isCorrect = isCorrect;
 
-  res.status(200).json({ message: 'Поле isCorrect обновлено', question });
+  res.status(200).json({ message: 'Field isCorrect updated', question });
+});
+
+router.delete('/:id', (req, res) => {
+  const questionId = parseInt(req.params.id, 10);
+
+  const index = questions.findIndex((q) => q.id === questionId);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Question not found' });
+  }
+
+  const deletedQuestion = questions.splice(index, 1)[0];
+
+  res.status(200).json({ message: 'Question deleted', deletedQuestion });
 });
 
 module.exports = router;
