@@ -1,7 +1,8 @@
 class Question {
-  constructor(id, text) {
+  constructor(id, text, isCorrect) {
     this.id = id;
     this.text = text;
+    this.isCorrect = isCorrect;
   }
 }
 
