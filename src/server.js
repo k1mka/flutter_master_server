@@ -18,10 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // подключаем router из файла routes/questions.js
 const questionsRouter = require('./routes/questions');
+// подключаем router для users
+const usersRouter = require('./routes/users');
 
 // регистрируем middleware, который добавляет префикс /questions
 // для всех маршрутов, описанных в questionsRouter
 app.use('/questions', questionsRouter);
+app.use('/users', usersRouter);
 
 // указываем порт для сервера из переменной окружения,
 // если не задано — используем 3000
