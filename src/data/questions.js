@@ -1,5 +1,7 @@
+// получаем модельку из папки data
 const Question = require('../models/question');
 
+// обьявляем список наших вопросов
 const questionsList = [
   new Question(1, 'What is Flutter and why would you use it?', false),
   new Question(2, 'Explain the widget tree in Flutter.', false),
@@ -51,6 +53,5 @@ const questionsList = [
   new Question(20, 'What is the purpose of the pubspec.yaml file?', false),
 ];
 
-module.exports = questionsList;
-
+// экспортируем массив вопросов
 module.exports = questionsList;
