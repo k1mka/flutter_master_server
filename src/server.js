@@ -11,11 +11,6 @@ const app = express();
 // и добавляет его в req.body
 app.use(express.json());
 
-// промежуточный обработчик: парсит данные, отправленные в формате
-// application/x-www-form-urlencoded (обычные HTML-формы),
-// и добавляет их в req.body
-app.use(express.urlencoded({ extended: true }));
-
 // подключаем router из файла routes/questions.js
 const questionsRouter = require('./routes/questions');
 // подключаем router для users
@@ -24,6 +19,8 @@ const usersRouter = require('./routes/users');
 // регистрируем middleware, который добавляет префикс /questions
 // для всех маршрутов, описанных в questionsRouter
 app.use('/questions', questionsRouter);
+
+// также с опомщтю middleware добавляем префикс /users для всех usersRouter
 app.use('/users', usersRouter);
 
 // указываем порт для сервера из переменной окружения,

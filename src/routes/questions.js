@@ -1,6 +1,10 @@
+// импортируем пакет express
 const express = require('express');
+
+// вызываем метод Router, с помощью которого будет создавать и обрабатывать запросы
 const router = express.Router();
 
+// получаем функции из модуля  questionService
 const {
   addQuestion,
   getQuestionsByUser,
@@ -10,11 +14,15 @@ const {
 
 // GET /questions/:userId — получить все вопросы конкретного пользователя
 router.get('/:userId', async (req, res) => {
+  // берем из запроса параметры, и кладем в переменную user id
   const { userId } = req.params;
   try {
+    // вызываем метод getQuestionsByUser, который находиться в другом модуле, чтобы получить юзера из базы данных
     const questions = await getQuestionsByUser(userId);
+    // возвращаем json ответ клиенту, со статус кодом 200
     res.status(200).json(questions);
   } catch (error) {
+    // отлавливаем ошибки и возвращаем клиенту статус код 500, что означает ошибка на стороне сервера
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
@@ -24,6 +32,7 @@ router.get('/:userId', async (req, res) => {
 router.post('/', async (req, res) => {
   const { userId, text } = req.body;
   if (!userId || !text) {
+    // если не передали user id или text, то возвращает 400, ошибка на стороне клиента, так-как мы не может выполнить запрос без этих полей
     return res.status(400).json({ message: 'userId and text are required' });
   }
 
@@ -41,6 +50,8 @@ router.patch('/:id', async (req, res) => {
   const questionId = parseInt(req.params.id, 10);
   const { isCorrect } = req.body;
 
+  // проверяем чтобы isCorrect обязательно был логическим значением, иначе это ошибка на стороне клиента,
+  // и мы не можем статус вопроса
   if (typeof isCorrect !== 'boolean') {
     return res.status(400).json({ message: 'isCorrect must be boolean' });
   }
