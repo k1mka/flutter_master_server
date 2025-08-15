@@ -13,6 +13,7 @@ async function addQuestion(userId, text) {
     // используется SQL синтаксис, так-как PostgreSQL это реляционная база данных
     // вставь в таблицу questions user_id и text, $1 это user_id, $2 это text, после вставки верни поля id, user_id, text, is_correct
     'INSERT INTO questions (user_id, text) VALUES ($1, $2) RETURNING id, user_id, text, is_correct',
+    // не забываем передать параметр
     [userId, text]
   );
 
@@ -78,9 +79,30 @@ async function deleteQuestion(questionId) {
   });
 }
 
+async function getRandomQuestion(userId) {
+  const result = await pool.query(
+    'SELECT * FROM questions WHERE user_id = $1 ORDER BY RANDOM() LIMIT 1',
+    [userId]
+  );
+
+  if (result.rows.length === 0) {
+    return null;
+  }
+
+  const row = result.rows[0];
+
+  return new Question({
+    id: row.id,
+    userId: row.user_id,
+    text: row.text,
+    isCorrect: row.is_correct,
+  });
+}
+
 module.exports = {
   addQuestion,
   getQuestionsByUser,
   updateQuestionStatus,
   deleteQuestion,
+  getRandomQuestion,
 };

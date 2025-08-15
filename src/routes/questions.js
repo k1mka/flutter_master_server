@@ -10,6 +10,7 @@ const {
   getQuestionsByUser,
   updateQuestionStatus,
   deleteQuestion,
+  getRandomQuestion,
 } = require('../data/questionService');
 
 // GET /questions/:userId — получить все вопросы конкретного пользователя
@@ -80,6 +81,18 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Question not found' });
     }
     res.status(200).json({ message: 'Question deleted', deletedQuestion });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.get('/random/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const randomQuestion = await getRandomQuestion(userId);
+    res.status(200).json(randomQuestion);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

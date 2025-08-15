@@ -20,7 +20,7 @@ const usersRouter = require('./routes/users');
 // для всех маршрутов, описанных в questionsRouter
 app.use('/questions', questionsRouter);
 
-// также с опомщтю middleware добавляем префикс /users для всех usersRouter
+// также с опомщтю middleware добавляем префикс /users для всех маршрутов users
 app.use('/users', usersRouter);
 
 // указываем порт для сервера из переменной окружения,
