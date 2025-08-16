@@ -3,6 +3,9 @@
 // импортируем пакет express
 const express = require('express');
 
+// получаем .env файл
+require('dotenv').config();
+
 // создаем экземпляр express-приложения для работы с REST API
 const app = express();
 

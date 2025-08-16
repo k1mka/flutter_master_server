@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/k1mka/flutter_master_server#readme",
   "dependencies": {
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "pg": "^8.16.3"
   }
